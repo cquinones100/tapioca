@@ -144,6 +144,10 @@ module Tapioca
       type: :hash,
       desc: "Options to pass to the DSL compilers",
       default: {}
+    option :server,
+      type:  :boolean,
+      desc: "Start a server to generate RBIs",
+      default: false
     def dsl(*constant_or_paths)
       set_environment(options)
 
@@ -172,6 +176,8 @@ module Tapioca
         Commands::DslVerify.new(**command_args)
       elsif options[:list_compilers]
         Commands::DslCompilerList.new(**command_args)
+      elsif options[:server]
+        Commands::Server.new(**command_args)
       else
         Commands::DslGenerate.new(**command_args)
       end
