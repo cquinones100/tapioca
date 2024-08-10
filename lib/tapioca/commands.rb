@@ -19,5 +19,6 @@ module Tapioca
     autoload :Require, "tapioca/commands/require"
     autoload :Todo, "tapioca/commands/todo"
     autoload :Server, "tapioca/commands/server"
+    autoload :ReloadableDslGenerate, "tapioca/commands/reloadable_dsl_generate"
   end
 end

@@ -52,8 +52,8 @@ module Tapioca
 
         @options = T.let(
           {
-            requested_constants: requested_constants,
-            requested_paths: requested_paths,
+            requested_constants: [],
+            requested_paths: [],
             outpath: outpath,
             only: only,
             exclude: exclude,
@@ -97,6 +97,8 @@ module Tapioca
         puts "Starting Tapioca server..."
         puts "Listening for changes in #{@app_root}..."
 
+        generator = Tapioca::Commands::ReloadableDslGenerate.new(**@options)
+
         listener = Listen.to(@app_root) do |modified, added, removed|
           if modified.find do |p|
             p = T.cast(p, Pathname)
@@ -105,9 +107,7 @@ module Tapioca
           end
             puts "Modified: #{modified.join(", ")}"
 
-            generator = Tapioca::Commands::DslGenerate.new(**@options)
-
-            generator.run
+            generator.rerun(paths: modified.map { |p| Pathname.new(p) })
           end
         end
 

@@ -55,6 +55,7 @@ require "tapioca/static/requires_compiler"
 require "tapioca/loaders/loader"
 require "tapioca/loaders/gem"
 require "tapioca/loaders/dsl"
+require "tapioca/loaders/reloadable_dsl"
 
 require "tapioca/gem"
 require "tapioca/dsl"
